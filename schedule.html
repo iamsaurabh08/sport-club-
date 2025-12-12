@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KickOff FC - Match Schedule</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800&display=swap"
+        rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .match-card {
+            background-color: var(--surface);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .match-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+
+        .teams {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 2;
+        }
+
+        .team-name {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .vs {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .match-info {
+            flex: 1;
+            text-align: right;
+            border-left: 1px solid var(--border);
+            padding-left: 20px;
+        }
+
+        .match-date {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .match-venue {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .score-badge {
+            background-color: var(--background);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            border: 1px solid var(--border);
+        }
+
+        .status-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .status-upcoming {
+            background-color: rgba(251, 191, 36, 0.1);
+            color: var(--accent);
+        }
+
+        .status-finished {
+            background-color: rgba(148, 163, 184, 0.1);
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 640px) {
+            .match-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .teams {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .match-info {
+                text-align: center;
+                border-left: none;
+                border-top: 1px solid var(--border);
+                padding-left: 0;
+                padding-top: 20px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="container" style="padding-top: 40px; text-align: center;">
+        <h1 class="section-title">Match Schedule</h1>
+        <p style="color: var(--text-muted); margin-top: -30px; margin-bottom: 40px;">Follow our journey through the
+            league.</p>
+    </header>
+
+    <main class="container animate-fade-in">
+        <h2
+            style="margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 10px; display: inline-block;">
+            Upcoming Fixtures</h2>
+
+        <div class="match-card">
+            <div class="teams">
+                <span class="team-name">KickOff FC</span>
+                <span class="vs">VS</span>
+                <span class="team-name">Lions FC</span>
+            </div>
+            <div class="match-info">
+                <span class="status-badge status-upcoming">Upcoming</span>
+                <div class="match-date">Dec 15, 15:00</div>
+                <div class="match-venue">kickOff Arena (Home)</div>
+            </div>
+        </div>
+
+        <div class="match-card">
+            <div class="teams">
+                <span class="team-name">City United</span>
+                <span class="vs">VS</span>
+                <span class="team-name">KickOff FC</span>
+            </div>
+            <div class="match-info">
+                <span class="status-badge status-upcoming">Upcoming</span>
+                <div class="match-date">Dec 22, 18:30</div>
+                <div class="match-venue">City Central Stadium (Away)</div>
+            </div>
+        </div>
+
+        <div class="match-card">
+            <div class="teams">
+                <span class="team-name">KickOff FC</span>
+                <span class="vs">VS</span>
+                <span class="team-name">Westside Warriors</span>
+            </div>
+            <div class="match-info">
+                <span class="status-badge status-upcoming">Upcoming</span>
+                <div class="match-date">Jan 05, 15:00</div>
+                <div class="match-venue">KickOff Arena (Home)</div>
+            </div>
+        </div>
+
+        <h2
+            style="margin: 60px 0 20px; border-bottom: 2px solid var(--border); padding-bottom: 10px; display: inline-block;">
+            Recent Results</h2>
+
+        <div class="match-card">
+            <div class="teams">
+                <span class="team-name">Rovers FC</span>
+                <span class="score-badge">0 - 3</span>
+                <span class="team-name">KickOff FC</span>
+            </div>
+            <div class="match-info">
+                <span class="status-badge status-finished">Full Time</span>
+                <div class="match-date">Dec 08</div>
+                <div class="match-venue">Rovers Ground (Away)</div>
+            </div>
+        </div>
+
+        <div class="match-card">
+            <div class="teams">
+                <span class="team-name">KickOff FC</span>
+                <span class="score-badge">1 - 1</span>
+                <span class="team-name">North End</span>
+            </div>
+            <div class="match-info">
+                <span class="status-badge status-finished">Full Time</span>
+                <div class="match-date">Dec 01</div>
+                <div class="match-venue">KickOff Arena (Home)</div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

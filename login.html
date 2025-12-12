@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KickOff FC - Login</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .auth-container {
+            max-width: 400px;
+            margin: 60px auto;
+            background-color: var(--surface);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: white;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .toggle-text {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .toggle-link {
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container animate-fade-in">
+
+        <!-- Login Section -->
+        <div id="loginSection" class="auth-container">
+            <h2 class="section-title" style="font-size: 2rem; margin-bottom: 1.5rem;">Welcome Back</h2>
+
+            <form class="auth-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" id="loginUsername" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="loginPassword" class="form-input" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Log In</button>
+            </form>
+
+            <p class="toggle-text">
+                Don't have an account? <span class="toggle-link" onclick="toggleAuthMode()">Sign Up</span>
+            </p>
+        </div>
+
+        <!-- Signup Section -->
+        <div id="signupSection" class="auth-container hidden">
+            <h2 class="section-title" style="font-size: 2rem; margin-bottom: 1.5rem;">Join the Club</h2>
+
+            <form class="auth-form" onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" id="signupUsername" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="signupEmail" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="signupPassword" class="form-input" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Sign Up</button>
+            </form>
+
+            <p class="toggle-text">
+                Already have an account? <span class="toggle-link" onclick="toggleAuthMode()">Log In</span>
+            </p>
+        </div>
+
+    </main>
+
+    <script>
+        function toggleAuthMode() {
+            document.getElementById("loginSection").classList.toggle("hidden");
+            document.getElementById("signupSection").classList.toggle("hidden");
+        }
+
+        // Signup Logic
+        function handleSignup(e) {
+            e.preventDefault();
+
+            const username = document.getElementById("signupUsername").value.trim();
+            const email = document.getElementById("signupEmail").value.trim();
+            const password = document.getElementById("signupPassword").value.trim();
+
+            let users = JSON.parse(localStorage.getItem("kickoff_users")) || {};
+
+            if (users[username]) {
+                alert("Username already exists");
+                return;
+            }
+
+            users[username] = { email, password };
+            localStorage.setItem("kickoff_users", JSON.stringify(users));
+
+            alert("Signup successful");
+
+            loginUser(username);
+        }
+
+        // Login Logic
+        function handleLogin(e) {
+            e.preventDefault();
+
+            const username = document.getElementById("loginUsername").value.trim();
+            const password = document.getElementById("loginPassword").value.trim();
+
+            let users = JSON.parse(localStorage.getItem("kickoff_users")) || {};
+
+            if (!users[username]) {
+                alert("User not found");
+                return;
+            }
+
+            if (users[username].password !== password) {
+                alert("Incorrect password");
+                return;
+            }
+
+            loginUser(username);
+        }
+
+        // Save logged in user and redirect
+        function loginUser(username) {
+            localStorage.setItem("kickoff_user", username);
+            window.location.href = "index.html";
+        }
+    </script>
+
+</body>
+</html>

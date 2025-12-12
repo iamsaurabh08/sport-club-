@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KickOff FC - Fan Zone</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800&display=swap"
+        rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .discussion-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 40px;
+        }
+
+        .chat-area {
+            background-color: var(--surface);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+        }
+
+        .messages-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            background-color: var(--background);
+            padding: 15px;
+            border-radius: 8px;
+            max-width: 80%;
+            align-self: flex-start;
+            border: 1px solid var(--border);
+        }
+
+        .message.own {
+            align-self: flex-end;
+            background-color: rgba(255, 77, 77, 0.1);
+            border-color: rgba(255, 77, 77, 0.3);
+        }
+
+        .message-author {
+            font-size: 0.75rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            float: right;
+            margin-left: 10px;
+        }
+
+        .chat-input-area {
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            background-color: var(--background);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: inherit;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sidebar-card {
+            background-color: var(--surface);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .discussion-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                order: -1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="container" style="padding-top: 40px; text-align: center;">
+        <h1 class="section-title">Fan Zone</h1>
+        <p style="color: var(--text-muted); margin-top: -30px; margin-bottom: 40px;">Join the conversation with fellow
+            supporters.</p>
+    </header>
+
+    <main class="container discussion-container animate-fade-in" style="margin-bottom: 60px;">
+
+        <div class="chat-area">
+            <div class="chat-header">
+                Live Discussion
+            </div>
+            <div class="messages-list" id="messagesList">
+                <!-- Messages will be inserted here -->
+                <div class="message">
+                    <div class="message-author">Admin <span class="message-time">10:00 AM</span></div>
+                    <div>Welcome to the new fan zone! Keep it clean and respectful.</div>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="usernameInput" placeholder="Name" style="width: 100px;" class="chat-input"
+                    value="Fan">
+                <input type="text" id="messageInput" placeholder="Type a message..." class="chat-input">
+                <button class="btn" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="sidebar-card">
+                <h3>Trend</h3>
+                <ul style="list-style: none; margin-top: 15px; color: var(--text-muted);">
+                    <li style="margin-bottom: 10px;">#KickOffVictory</li>
+                    <li style="margin-bottom: 10px;">#NewSigning</li>
+                    <li style="margin-bottom: 10px;">#DerbyDay</li>
+                </ul>
+            </div>
+            <div class="sidebar-card">
+                <h3>Community Guidelines</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">
+                    1. Be respectful<br>
+                    2. No hate speech<br>
+                    3. No spam<br>
+                    4. Support the team!
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // Simple Discussion Logic
+        const messagesList = document.getElementById('messagesList');
+        const messageInput = document.getElementById('messageInput');
+        const usernameInput = document.getElementById('usernameInput');
+
+        // Load messages from local storage
+        const loadMessages = () => {
+            const stored = localStorage.getItem('chat_messages');
+            if (stored) {
+                const messages = JSON.parse(stored);
+                // Clear default if we have stored messages (except admin msg maybe, but simplifying for now)
+                // Actually let's just append stored messages to the default admin one for demo
+                messages.forEach(msg => appendMessageElement(msg));
+            }
+        };
+
+        const saveMessage = (msgObj) => {
+            const stored = localStorage.getItem('chat_messages');
+            const messages = stored ? JSON.parse(stored) : [];
+            messages.push(msgObj);
+            localStorage.setItem('chat_messages', JSON.stringify(messages));
+        };
+
+        const appendMessageElement = (msg) => {
+            const div = document.createElement('div');
+            div.className = `message ${msg.isOwn ? 'own' : ''}`;
+            div.innerHTML = `
+                <div class="message-author">${msg.user} <span class="message-time">${msg.time}</span></div>
+                <div>${msg.text}</div>
+            `;
+            messagesList.appendChild(div);
+            messagesList.scrollTop = messagesList.scrollHeight;
+        };
+
+        function sendMessage() {
+            const text = messageInput.value.trim();
+            const user = usernameInput.value.trim() || 'Anonymous';
+
+            if (text) {
+                const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                const msgObj = { user, text, time, isOwn: true };
+
+                appendMessageElement(msgObj);
+                saveMessage(msgObj);
+
+                messageInput.value = '';
+            }
+        }
+
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // Init
+        loadMessages();
+
+        // Check for logged in user
+        const currentUser = localStorage.getItem('kickoff_user');
+        if (currentUser) {
+            usernameInput.value = currentUser;
+            usernameInput.readOnly = true;
+            usernameInput.style.backgroundColor = 'var(--surface)';
+            usernameInput.style.borderColor = 'transparent';
+        }
+    </script>
+</body>
+
+</html>

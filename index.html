@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KickOff FC - Home</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Specific Styles for Home Page */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.9)), 
+                        url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: -60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-card {
+            background-color: var(--surface);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero animate-fade-in">
+        <div class="container hero-content">
+            <h1>We Are <span style="color: var(--primary)">Champions</span></h1>
+            <p>Experience the passion, the glory, and the beautifully game with your local heroes. Join us for the upcoming season.</p>
+            <a href="schedule.html" class="btn">View Match Schedule</a>
+        </div>
+    </section>
+
+    <!-- Key Stats / Highlights -->
+    <section class="container">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">#1</div>
+                <p>League Position</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">24</div>
+                <p>Matches Won</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">58</div>
+                <p>Goals Scored</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+     <section class="container" style="margin-top: 80px;">
+        <h2 class="section-title">Latest News</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+            <article style="background: var(--surface); border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
+                <img src="https://images.unsplash.com/photo-1522778119026-d647f0565c6a?auto=format&fit=crop&w=800&q=80" alt="Match" style="width: 100%; height: 200px; object-fit: cover;">
+                <div style="padding: 20px;">
+                    <span style="color: var(--primary); font-size: 0.9rem; font-weight: 600;">Match Report</span>
+                    <h3 style="margin: 10px 0;">Victory in the Derby</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 15px;">A stunning performance from the team secured a 3-0 against our rivals.</p>
+                    <a href="#" style="color: var(--accent); font-weight: 500;">Read More →</a>
+                </div>
+            </article>
+            <article style="background: var(--surface); border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
+                <img src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=800&q=80" alt="Training" style="width: 100%; height: 200px; object-fit: cover;">
+                <div style="padding: 20px;">
+                    <span style="color: var(--primary); font-size: 0.9rem; font-weight: 600;">Team News</span>
+                    <h3 style="margin: 10px 0;">New Striker Signed</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 15px;">We are excited to announce the signing of top scorer James Rodriguez.</p>
+                    <a href="#" style="color: var(--accent); font-weight: 500;">Read More →</a>
+                </div>
+            </article>
+            <article style="background: var(--surface); border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
+                <div style="padding: 30px; height: 100%; display: flex; flex-direction: column; justify-content: center; text-align: center; border: 2px dashed var(--border);">
+                    <h3 style="margin-bottom: 15px;">Next Match</h3>
+                    <div style="font-size: 2rem; font-weight: 800; margin-bottom: 10px;">VS LIONS FC</div>
+                    <p style="color: var(--text-muted);">Saturday, 15th Dec<br>15:00 KO</p>
+                    <a href="schedule.html" class="btn" style="margin-top: 20px;">Get Tickets</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
